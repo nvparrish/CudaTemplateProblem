@@ -6,6 +6,7 @@
  */
 
 #include "kernel.cu.h"
+#include "MyClass.h"
 
 template<typename T>
 __global__ void gpuCalcPower(T *d_data, int size, int power, T *d_out){
@@ -33,8 +34,11 @@ template<typename T>
 void gpuCalcPowerWrapper(int blockNum, int blockSize,
 T *d_data, int size, int power, T* d_out){
 	gpuCalcPower<<<blockNum, blockSize>>>(d_data, size, power, d_out);
+	cudaDeviceSynchronize();
 	return;
 }
+
+template void MyClass::calcPower(float* d_data, int size, float* d_result);
 
 __global__ void init_rand(curandState *state){
 	int idx = blockIdx.x * blockDim.x + threadIdx.x;

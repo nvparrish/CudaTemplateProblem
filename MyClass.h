@@ -10,6 +10,10 @@
 
 #include "kernel.cu.h"
 
+template<typename T>
+void gpuCalcPowerWrapper(int blockNum, int blockSize,
+		T *d_data, int size, int power, T *d_out);
+
 class MyClass {
 private:
 	int power;
